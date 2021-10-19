@@ -2,13 +2,14 @@ import React, { useRef } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { getAuth } from 'firebase/auth';
+import { auth } from '../firebase';
 
 function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
-  const auth = getAuth();
+  //const auth = getAuth();
 
   function handleSubmit(e) {
     e.preventDefault();
