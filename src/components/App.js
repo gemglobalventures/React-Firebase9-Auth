@@ -1,9 +1,9 @@
-import Signup from './Signup';
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Login from './Login';
+import Signup from './Signup';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-              <Route exact path='/' comonent={Dashboard} />
+              <Route exact path='/' component={Dashboard} />
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={Login} />
             </Switch>

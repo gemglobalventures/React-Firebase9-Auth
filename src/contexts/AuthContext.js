@@ -26,7 +26,9 @@ export function AuthProvider({ children }) {
   }
 
   function login(auth, email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      return Promise.reject(error.message);
+    });
   }
 
   useEffect(() => {
