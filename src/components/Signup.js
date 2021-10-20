@@ -9,7 +9,6 @@ function Signup() {
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,12 +19,10 @@ function Signup() {
 
     try {
       setError('');
-      setLoading(true);
       await signup(auth, emailRef.current.value, passwordRef.current.value);
     } catch (e) {
       setError('Error: ' + e);
     }
-    setLoading(false);
   }
 
   return (
@@ -47,7 +44,7 @@ function Signup() {
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type='password' ref={passwordConfirmRef} required />
             </Form.Group>
-            <Button disabled={loading} className='w-100 mt-2' type='submit'>
+            <Button className='w-100 mt-2' type='submit'>
               Sign Up
             </Button>
           </Form>
