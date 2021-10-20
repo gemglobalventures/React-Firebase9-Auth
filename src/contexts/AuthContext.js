@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return signOut().catch((error) => {
+    return signOut(auth).catch((error) => {
       return Promise.reject(error.message);
     });
   }
