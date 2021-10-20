@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { auth } from '../firebase';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const emailRef = useRef();
@@ -9,6 +10,7 @@ function Login() {
   const { login } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -17,8 +19,8 @@ function Login() {
       setError('');
       setLoading(true);
       await login(auth, emailRef.current.value, passwordRef.current.value);
-    } catch {
-      setError('Failed to login');
+    } catch (e) {
+      setError('Error: ' + e);
     }
     setLoading(false);
   }

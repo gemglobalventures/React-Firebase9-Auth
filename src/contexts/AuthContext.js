@@ -6,7 +6,6 @@ import {
 } from 'firebase/auth';
 
 const AuthContext = React.createContext();
-//const auth = getAuth();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -19,7 +18,6 @@ export function AuthProvider({ children }) {
   function signup(auth, email, password) {
     return createUserWithEmailAndPassword(auth, email, password).catch(
       (error) => {
-        //console.log(error.message);
         return Promise.reject(error.message);
       }
     );
@@ -40,6 +38,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     signup,
+    login,
   };
 
   return (
