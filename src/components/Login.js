@@ -9,7 +9,6 @@ function Login() {
   const passwordRef = useRef();
   const { login } = useAuth();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
@@ -17,12 +16,11 @@ function Login() {
 
     try {
       setError('');
-      setLoading(true);
       await login(auth, emailRef.current.value, passwordRef.current.value);
+      history.push('/');
     } catch (e) {
       setError('Error: ' + e);
     }
-    setLoading(false);
   }
 
   return (
@@ -40,7 +38,7 @@ function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type='password' ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className='w-100 mt-2' type='submit'>
+            <Button className='w-100 mt-2' type='submit'>
               Login
             </Button>
           </Form>

@@ -1,11 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react'; // eslint-disable-next-line
 import { app, auth } from '../firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getAuth,
 } from 'firebase/auth';
 
 const AuthContext = React.createContext();
+const fbauth = getAuth();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -13,7 +15,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentuser] = useState();
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
 
   function signup(auth, email, password) {
     return createUserWithEmailAndPassword(auth, email, password).catch(
@@ -28,11 +30,9 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    return fbauth.onAuthStateChanged((user) => {
       setCurrentuser(user);
-      setLoading(false);
     });
-    return unsubscribe;
   }, []);
 
   const value = {
@@ -41,9 +41,5 @@ export function AuthProvider({ children }) {
     login,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
