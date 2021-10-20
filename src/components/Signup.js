@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { auth } from '../firebase';
+import { useHistory, Link } from 'react-router-dom';
 
 function Signup() {
   const emailRef = useRef();
@@ -9,6 +10,7 @@ function Signup() {
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState('');
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,6 +22,7 @@ function Signup() {
     try {
       setError('');
       await signup(auth, emailRef.current.value, passwordRef.current.value);
+      history.push('/');
     } catch (e) {
       setError('Error: ' + e);
     }
@@ -51,7 +54,7 @@ function Signup() {
         </Card.Body>
       </Card>
       <div className='w-100 text-center mt-2'>
-        Already have an account? Login
+        Already have an account? <Link to='/login'>Login</Link>
       </div>
     </>
   );

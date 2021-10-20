@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   signOut,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 const AuthContext = React.createContext();
@@ -38,6 +39,12 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function resetPassword(email) {
+    return sendPasswordResetEmail(auth, email).catch((error) => {
+      return Promise.reject(error.message);
+    });
+  }
+
   useEffect(() => {
     return fbauth.onAuthStateChanged((user) => {
       setCurrentuser(user);
@@ -49,6 +56,7 @@ export function AuthProvider({ children }) {
     signup,
     login,
     logout,
+    resetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
