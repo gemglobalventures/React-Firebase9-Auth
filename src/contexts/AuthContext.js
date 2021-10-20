@@ -7,6 +7,7 @@ import {
   signOut,
   sendPasswordResetEmail,
   updateEmail,
+  updatePassword,
 } from 'firebase/auth';
 
 const AuthContext = React.createContext();
@@ -52,6 +53,12 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function updateNewPassword(newpassword) {
+    updatePassword(auth.currentUser, newpassword).then(() => {
+      return Promise.resolve('Done');
+    });
+  }
+
   useEffect(() => {
     return fbauth.onAuthStateChanged((user) => {
       setCurrentuser(user);
@@ -65,6 +72,7 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmailAddress,
+    updateNewPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -7,7 +7,7 @@ export default function UpdateProfile() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { currentUser, updatePassword, updateEmailAddress } = useAuth();
+  const { currentUser, updateNewPassword, updateEmailAddress } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -27,7 +27,7 @@ export default function UpdateProfile() {
       promises.push(updateEmailAddress(emailRef.current.value));
     }
     if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value));
+      promises.push(updateNewPassword(passwordRef.current.value));
     }
 
     Promise.all(promises)
