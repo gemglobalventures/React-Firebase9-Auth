@@ -22,11 +22,8 @@ export default function UpdateProfile() {
     setLoading(true);
     setError('');
 
-    console.log(emailRef.current.value);
-    console.log(currentUser.email);
-
     if (emailRef.current.value !== currentUser.email) {
-      console.log('not the same updating to ' + emailRef.current.value);
+      //console.log('not the same updating to ' + emailRef.current.value);
       promises.push(updateEmailAddress(emailRef.current.value));
     }
     if (passwordRef.current.value) {
